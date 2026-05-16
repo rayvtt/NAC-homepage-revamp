@@ -736,14 +736,37 @@ section { padding: 6rem 0; position: relative; }
 
 .founder-portrait {
   aspect-ratio: 4/5;
-  background-size: cover; background-position: center top;
-  background-color: #ddd;
   border-radius: 18px;
   position: relative;
-  background-image: linear-gradient(135deg, #2b3245 0%, #0f1a36 100%);
-  display: flex; align-items: center; justify-content: center;
-  color: rgba(255,255,255,.4);
-  font-family: var(--ff-mono); font-size: .65rem; letter-spacing: .2em;
+  overflow: hidden;
+  background: linear-gradient(160deg, #1a2647 0%, #0f1a36 55%, #050b1a 100%);
+  box-shadow: 0 20px 60px -20px rgba(15,26,54,.45);
+}
+.founder-portrait::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(80% 60% at 30% 20%, rgba(196,146,44,.18) 0%, transparent 60%),
+    radial-gradient(70% 50% at 80% 90%, rgba(91,58,168,.22) 0%, transparent 65%);
+  pointer-events: none; z-index: 1;
+}
+.founder-portrait img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center top;
+  z-index: 2;
+}
+.founder-portrait::after {
+  content: '';
+  position: absolute; left: 0; right: 0; bottom: 0; height: 38%;
+  background: linear-gradient(to top, rgba(15,26,54,.7), transparent);
+  pointer-events: none; z-index: 3;
+}
+.founder-portrait .credit {
+  position: absolute; bottom: 1rem; left: 1.1rem; z-index: 4;
+  color: rgba(255,255,255,.78);
+  font-family: var(--ff-mono); font-size: .58rem; letter-spacing: .18em;
+  text-transform: uppercase;
 }
 .founder-portrait .ribbon {
   position: absolute; top: 1rem; left: 1rem;
@@ -1034,6 +1057,222 @@ footer.footer {
 .mobile-cta .mc-idx { color: var(--gold); }
 .mobile-cta .mc-cmp { color: var(--orange); }
 @media (max-width: 720px) { .mobile-cta { display: flex; } }
+
+/* ============================================================
+   HERO DESTINATION CHIPS (around globe)
+   ============================================================ */
+.dest-chip {
+  position: absolute; z-index: 4;
+  display: flex; align-items: center; gap: .6rem;
+  padding: .4rem .65rem .4rem .45rem;
+  background: var(--cream-glass);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(196,146,44,.22);
+  border-radius: 999px;
+  box-shadow: 0 14px 32px -14px rgba(15,26,54,.22);
+  font-family: var(--ff-mono); font-size: .58rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--display);
+  animation: chipBob 7s ease-in-out infinite;
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+}
+.dest-chip:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 22px 44px -18px rgba(15,26,54,.32); }
+.dest-chip-thumb {
+  width: 30px; height: 30px; border-radius: 50%;
+  background-size: cover; background-position: center;
+  flex-shrink: 0; border: 1px solid rgba(255,255,255,.6);
+}
+.dest-chip b { font-family: var(--ff-display); font-style: normal; font-weight: 500;
+  font-size: .85rem; letter-spacing: -.005em; text-transform: none; color: var(--display); }
+.dest-chip i { font-style: normal; color: var(--gold); font-weight: 500; }
+.dest-chip-1 { top: 6%;  left: -12%; animation-delay: 0s; }
+.dest-chip-2 { bottom: 14%; left: -10%; animation-delay: 1.5s; }
+.dest-chip-3 { bottom: -2%; right: 6%; animation-delay: 3s; }
+@keyframes chipBob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+@media (max-width: 900px) {
+  .dest-chip { font-size: .5rem; padding: .3rem .55rem .3rem .35rem; }
+  .dest-chip-thumb { width: 24px; height: 24px; }
+  .dest-chip b { font-size: .72rem; }
+  .dest-chip-1 { top: 2%; left: -4%; }
+  .dest-chip-2 { bottom: 8%; left: -2%; }
+  .dest-chip-3 { bottom: -4%; right: -2%; }
+}
+
+/* ============================================================
+   STAGING PANEL (editor mode — ?edit=1 or Cmd+Shift+E)
+   ============================================================ */
+.stage-toggle {
+  position: fixed; right: 1rem; bottom: 1rem; z-index: 95;
+  width: 46px; height: 46px; border-radius: 50%;
+  background: var(--display); color: #fff; border: none;
+  box-shadow: 0 14px 30px -10px rgba(15,26,54,.35);
+  display: none; align-items: center; justify-content: center;
+  transition: transform .2s var(--ease);
+}
+.stage-toggle:hover { transform: scale(1.06); }
+.stage-toggle svg { width: 20px; height: 20px; }
+body.stage-enabled .stage-toggle { display: flex; }
+
+.stage-panel {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: 320px; max-width: 92vw; z-index: 96;
+  background: #fafaf7;
+  border-left: 1px solid var(--line-strong);
+  box-shadow: -24px 0 60px -20px rgba(15,26,54,.18);
+  transform: translateX(105%);
+  transition: transform .4s var(--ease);
+  display: flex; flex-direction: column;
+  font-family: var(--ff-body);
+}
+.stage-panel.is-open { transform: translateX(0); }
+.stage-head {
+  padding: 1.2rem 1.25rem .9rem;
+  border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.stage-head h3 {
+  font-family: var(--ff-display); font-size: 1.25rem; font-weight: 500;
+  color: var(--display); letter-spacing: -.01em;
+}
+.stage-head .stage-eyebrow {
+  font-family: var(--ff-mono); font-size: .55rem; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--gold); display: block; margin-bottom: .25rem;
+}
+.stage-close {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: transparent; border: 1px solid var(--line-strong);
+  color: var(--display); display: flex; align-items: center; justify-content: center;
+}
+.stage-close svg { width: 14px; height: 14px; }
+.stage-list {
+  flex: 1; overflow-y: auto;
+  padding: .75rem .75rem 1rem;
+  display: flex; flex-direction: column; gap: .35rem;
+}
+.stage-item {
+  display: flex; align-items: center; gap: .55rem;
+  padding: .65rem .65rem .65rem .5rem;
+  background: #fff; border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: .85rem; color: var(--display);
+  cursor: grab;
+  transition: background .15s var(--ease), border-color .15s var(--ease), opacity .2s var(--ease);
+}
+.stage-item:hover { background: #fdfcf8; border-color: var(--line-strong); }
+.stage-item.is-dragging { opacity: .35; cursor: grabbing; }
+.stage-item.is-over { border-color: var(--gold); background: rgba(196,146,44,.05); }
+.stage-item[data-hidden="1"] { opacity: .45; background: #f4f3ef; }
+.stage-grip { color: var(--muted-soft); display: flex; flex-shrink: 0; touch-action: none; }
+.stage-grip svg { width: 14px; height: 14px; }
+.stage-item-num {
+  font-family: var(--ff-mono); font-size: .55rem; letter-spacing: .14em;
+  color: var(--gold); flex-shrink: 0; min-width: 28px;
+}
+.stage-item-label {
+  flex: 1; font-family: var(--ff-display); font-weight: 500;
+  font-size: .98rem; line-height: 1.15; color: var(--display);
+}
+.stage-eye {
+  background: transparent; border: none; padding: 4px; color: var(--muted);
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 6px; transition: color .15s var(--ease), background .15s var(--ease);
+}
+.stage-eye:hover { color: var(--display); background: rgba(15,26,54,.05); }
+.stage-eye svg { width: 16px; height: 16px; }
+.stage-foot {
+  padding: .9rem 1rem 1.1rem;
+  border-top: 1px solid var(--line);
+  display: flex; gap: .5rem;
+  background: #fafaf7;
+}
+.stage-btn {
+  flex: 1; padding: .65rem .8rem;
+  border-radius: 8px; border: 1px solid var(--line-strong);
+  background: #fff; color: var(--display);
+  font-family: var(--ff-mono); font-size: .6rem; letter-spacing: .14em;
+  text-transform: uppercase; font-weight: 600;
+  cursor: pointer; transition: background .15s var(--ease), border-color .15s var(--ease);
+}
+.stage-btn:hover { border-color: var(--display); }
+.stage-btn-primary { background: var(--display); color: #fff; border-color: var(--display); }
+.stage-btn-primary:hover { background: #182646; }
+.stage-hint {
+  padding: 0 1.25rem .75rem;
+  font-size: .72rem; line-height: 1.4; color: var(--muted);
+}
+section[data-section-hidden="1"], header[data-section-hidden="1"] { display: none !important; }
+
+/* ============================================================
+   MOBILE NAV DRAWER
+   ============================================================ */
+.nav-drawer {
+  position: fixed; inset: 0; z-index: 97;
+  background: rgba(10,20,40,.55);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s var(--ease);
+}
+.nav-drawer.is-open { opacity: 1; pointer-events: auto; }
+.nav-drawer-inner {
+  position: absolute; top: 0; right: 0; bottom: 0;
+  width: 84vw; max-width: 360px;
+  background: #fafaf7;
+  transform: translateX(105%);
+  transition: transform .35s var(--ease);
+  display: flex; flex-direction: column;
+  padding: 1.25rem 1.25rem 1.5rem;
+}
+.nav-drawer.is-open .nav-drawer-inner { transform: translateX(0); }
+.nav-drawer-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-bottom: 1rem; border-bottom: 1px solid var(--line); margin-bottom: 1rem;
+}
+.nav-drawer-head .eyebrow { color: var(--gold); }
+.nav-drawer-close {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: transparent; border: 1px solid var(--line-strong);
+  display: flex; align-items: center; justify-content: center; color: var(--display);
+}
+.nav-drawer-close svg { width: 14px; height: 14px; }
+.nav-drawer-links { display: flex; flex-direction: column; gap: .15rem; }
+.nav-drawer-links a {
+  padding: .85rem .5rem;
+  border-bottom: 1px dashed var(--line);
+  font-family: var(--ff-display); font-size: 1.4rem; font-weight: 500;
+  color: var(--display); letter-spacing: -.005em;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-drawer-links a span:last-child { color: var(--gold); font-family: var(--ff-mono); font-size: .65rem; }
+.nav-drawer-foot {
+  margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: .5rem;
+}
+.nav-drawer-foot .cta { justify-content: center; }
+
+/* ============================================================
+   NAV ACTIVE STATE
+   ============================================================ */
+.nav-links a {
+  position: relative;
+  transition: color .2s var(--ease);
+}
+.nav-links a.is-active { color: var(--gold); }
+.nav-links a.is-active::after {
+  content: ''; position: absolute; left: 50%; bottom: -8px;
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--gold);
+  transform: translateX(-50%);
+}
+
+/* ============================================================
+   PROCESS STEP ICONS
+   ============================================================ */
+.step-icon {
+  width: 18px; height: 18px; color: var(--gold);
+  margin-top: .4rem; display: block;
+}
 </style>
 </head>
 <body>
@@ -1068,7 +1307,7 @@ footer.footer {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
         <span data-vi="Đặt 30''" data-en="Book 30'">Đặt 30''</span>
       </a>
-      <button class="nav-burger" aria-label="Menu">
+      <button class="nav-burger" id="navBurger" aria-label="Menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
       </button>
     </div>
@@ -1076,9 +1315,67 @@ footer.footer {
 </nav>
 
 <!-- ============================================================
+     MOBILE NAV DRAWER
+============================================================ -->
+<div class="nav-drawer" id="navDrawer" aria-hidden="true">
+  <div class="nav-drawer-inner">
+    <div class="nav-drawer-head">
+      <span class="eyebrow" data-vi="Điều Hướng" data-en="Navigation">Điều Hướng</span>
+      <button class="nav-drawer-close" id="navDrawerClose" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <nav class="nav-drawer-links">
+      <a href="#brochures" data-vi="Brochures" data-en="Brochures">Brochures<span>§01</span></a>
+      <a href="#nac-index" data-vi="NAC Index" data-en="NAC Index">NAC Index<span>§02</span></a>
+      <a href="#property-hub" data-vi="Property Hub" data-en="Property Hub">Property Hub<span>§03</span></a>
+      <a href="#nac-times" data-vi="NAC Times" data-en="NAC Times">NAC Times<span>§04</span></a>
+      <a href="#process" data-vi="Quy Trình" data-en="Process">Quy Trình<span>§05</span></a>
+      <a href="#founder" data-vi="Founder" data-en="Founder">Founder<span>§06</span></a>
+      <a href="#tools" data-vi="Công Cụ" data-en="Tools">Công Cụ<span>§07</span></a>
+    </nav>
+    <div class="nav-drawer-foot">
+      <a class="cta cta-primary" href="https://calendar.app.google/gnbtNBTBDKuHUasw7" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        <span data-vi="Đặt 30'' với Ray" data-en="Book 30' with Ray">Đặt 30'' với Ray</span>
+      </a>
+      <a class="cta cta-secondary" href="https://wa.me/447388646000" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.7.1-.1.3-.4.5-.5.2-.2.2-.3.3-.5.1-.2.1-.4 0-.5-.1-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9 0 1.7 1.2 3.4 1.4 3.6.2.2 2.4 3.6 5.8 5 .8.3 1.4.5 1.9.7.8.3 1.5.2 2.1.1.6-.1 1.8-.7 2.1-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.5-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+        <span data-vi="Nhắn WhatsApp" data-en="WhatsApp">Nhắn WhatsApp</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     STAGING PANEL (editor mode — append ?edit=1 to URL
+                    or press Cmd/Ctrl + Shift + E)
+============================================================ -->
+<button class="stage-toggle" id="stageToggle" aria-label="Open layout editor" title="Layout editor (Cmd+Shift+E)">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18M21 6l-3-3M21 12l-3-3M21 18l-3-3"/></svg>
+</button>
+<aside class="stage-panel" id="stagePanel" aria-hidden="true">
+  <div class="stage-head">
+    <div>
+      <span class="stage-eyebrow" data-vi="Chế Độ Biên Tập" data-en="Edit Mode">Chế Độ Biên Tập</span>
+      <h3 data-vi="Sắp Xếp Trang" data-en="Layout Editor">Sắp Xếp Trang</h3>
+    </div>
+    <button class="stage-close" id="stageClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <p class="stage-hint" data-vi="Kéo để sắp xếp lại. Nhấn mắt để ẩn/hiện. Lưu để cố định thứ tự (lưu trong trình duyệt)." data-en="Drag to reorder. Click the eye to hide/show. Save to persist (stored in this browser).">Kéo để sắp xếp lại. Nhấn mắt để ẩn/hiện. Lưu để cố định thứ tự (lưu trong trình duyệt).</p>
+  <div class="stage-list" id="stageList"></div>
+  <div class="stage-foot">
+    <button class="stage-btn" id="stageReset" type="button" data-vi="Mặc Định" data-en="Reset">Mặc Định</button>
+    <button class="stage-btn stage-btn-primary" id="stageSave" type="button" data-vi="Lưu" data-en="Save">Lưu</button>
+  </div>
+</aside>
+
+<!-- ============================================================
      HERO
 ============================================================ -->
-<header class="hero" id="top">
+<header class="hero" id="top" data-section="hero" data-section-label-vi="Hero" data-section-label-en="Hero">
   <div class="wrap hero-grid">
     <div class="hero-copy reveal">
       <span class="eyebrow" data-vi="Đầu Tư Di Trú Chiến Lược · 2026" data-en="Strategic Investment Migration · 2026">Đầu Tư Di Trú Chiến Lược · 2026</span>
@@ -1097,16 +1394,40 @@ footer.footer {
       </div>
 
       <div class="hero-kpis">
-        <div class="hero-kpi"><span class="v">12</span><span class="l" data-vi="Chương Trình" data-en="Programs">Chương Trình</span></div>
-        <div class="hero-kpi"><span class="v">47</span><span class="l" data-vi="BĐS Curated" data-en="Curated Listings">BĐS Curated</span></div>
-        <div class="hero-kpi"><span class="v"><em>100+</em></span><span class="l" data-vi="Case Đã Đóng" data-en="Cases Closed">Case Đã Đóng</span></div>
-        <div class="hero-kpi"><span class="v"><em>50+</em></span><span class="l" data-vi="Thị Trường iQi" data-en="iQi Markets">Thị Trường iQi</span></div>
+        <div class="hero-kpi"><span class="v" data-count="12">12</span><span class="l" data-vi="Chương Trình" data-en="Programs">Chương Trình</span></div>
+        <div class="hero-kpi"><span class="v" data-count="47">47</span><span class="l" data-vi="BĐS Curated" data-en="Curated Listings">BĐS Curated</span></div>
+        <div class="hero-kpi"><span class="v" data-count="100" data-count-suffix="+"><em>100+</em></span><span class="l" data-vi="Case Đã Đóng" data-en="Cases Closed">Case Đã Đóng</span></div>
+        <div class="hero-kpi"><span class="v" data-count="50" data-count-suffix="+"><em>50+</em></span><span class="l" data-vi="Thị Trường iQi" data-en="iQi Markets">Thị Trường iQi</span></div>
       </div>
     </div>
 
     <div class="hero-globe-wrap reveal">
       <div class="hero-globe-ring"></div>
       <canvas class="hero-globe" id="heroGlobe"></canvas>
+
+      <!-- Floating destination chips -->
+      <div class="dest-chip dest-chip-1">
+        <div class="dest-chip-thumb" style="background-image:url('https://nomadassetcollective.com/wp-content/uploads/2026/01/Your-paragraph-text-10.png')"></div>
+        <div>
+          <b data-vi="Lisbon" data-en="Lisbon">Lisbon</b>
+          · GV <i>76</i>
+        </div>
+      </div>
+      <div class="dest-chip dest-chip-2">
+        <div class="dest-chip-thumb" style="background-image:url('https://nomadassetcollective.com/wp-content/uploads/2026/01/Your-paragraph-text-9.png')"></div>
+        <div>
+          <b data-vi="Dubai" data-en="Dubai">Dubai</b>
+          · GV <i>79</i>
+        </div>
+      </div>
+      <div class="dest-chip dest-chip-3">
+        <div class="dest-chip-thumb" style="background-image:url('https://nomadassetcollective.com/wp-content/uploads/2026/01/Your-paragraph-text-4.png')"></div>
+        <div>
+          <b data-vi="Athens" data-en="Athens">Athens</b>
+          · GV <i>74</i>
+        </div>
+      </div>
+
       <div class="hero-globe-tag">
         <span data-vi="NAC Residence Index" data-en="NAC Residence Index">NAC Residence Index</span>
         <b>40+</b>
@@ -1119,7 +1440,7 @@ footer.footer {
 <!-- ============================================================
      TRUST STRIP
 ============================================================ -->
-<section class="trust" style="padding-top:3rem; padding-bottom:3rem;">
+<section class="trust" data-section="trust" data-section-label-vi="Đối Tác Tin Cậy" data-section-label-en="Trust Strip" style="padding-top:3rem; padding-bottom:3rem;">
   <div class="wrap trust-inner">
     <div class="trust-label" data-vi="Được tin tưởng bởi các đối tác và tổ chức hàng đầu" data-en="Trusted by leading partners and institutions">Được tin tưởng bởi các đối tác và tổ chức hàng đầu</div>
     <div class="trust-row">
@@ -1135,7 +1456,7 @@ footer.footer {
 <!-- ============================================================
      §01 — BROCHURES
 ============================================================ -->
-<section class="brochures" id="brochures">
+<section class="brochures" id="brochures" data-section="brochures" data-section-label-vi="Brochures · 12 Chương Trình" data-section-label-en="Brochures · 12 Programs">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">§ 01 · <span data-vi="Bộ Sưu Tập" data-en="The Collection">Bộ Sưu Tập</span></span>
@@ -1147,7 +1468,7 @@ footer.footer {
       <!-- Turkey -->
       <a class="brochure-tile" href="https://nomadassetcollective.com/brochures/chuong-trinh-tho-nhi-ky-cbi-citizenship-by-investment/" target="_blank" rel="noopener">
         <div class="brochure-tile-img" style="background-image:url('https://blog.nomadassetcollective.com/wp-content/uploads/2026/05/hy-lap-vs-tho-nhi-ky-2026-so-sanh-toan-dien-hai-chuong-trinh-dau-tu-di-tru-du-lieu-bds-roi-va-chien-luoc-chon-lua-cover-8d1da.jpg')"></div>
-        <span class="brochure-tile-score">NAC <span>84</span></span>
+        <span class="brochure-tile-score">NAC <span>72</span></span>
         <div class="brochure-tile-meta">
           <span class="brochure-tile-country" data-vi="🇹🇷 Thổ Nhĩ Kỳ" data-en="🇹🇷 Türkiye">🇹🇷 Thổ Nhĩ Kỳ</span>
           <span class="brochure-tile-name" data-vi="Citizenship by Investment" data-en="Citizenship by Investment">Citizenship by Investment</span>
@@ -1161,7 +1482,7 @@ footer.footer {
       <!-- Portugal -->
       <a class="brochure-tile" href="https://nomadassetcollective.com/brochures/chuong-trinh-bo-dao-nha-golden-visa/" target="_blank" rel="noopener">
         <div class="brochure-tile-img" style="background-image:url('https://blog.nomadassetcollective.com/wp-content/uploads/2026/05/bat-dong-san-lisbon-2026-phan-tich-gia-theo-quan-va-co-hoi-dau-tu-cho-nguoi-xin-d7-visa-infographic-cover-8a5b2.jpg')"></div>
-        <span class="brochure-tile-score">NAC <span>82</span></span>
+        <span class="brochure-tile-score">NAC <span>76</span></span>
         <div class="brochure-tile-meta">
           <span class="brochure-tile-country" data-vi="🇵🇹 Bồ Đào Nha" data-en="🇵🇹 Portugal">🇵🇹 Bồ Đào Nha</span>
           <span class="brochure-tile-name" data-vi="Golden Visa" data-en="Golden Visa">Golden Visa</span>
@@ -1175,7 +1496,7 @@ footer.footer {
       <!-- Greece -->
       <a class="brochure-tile" href="https://nomadassetcollective.com/brochures/residences-chuong-trinh-hy-lap-golden-visa/" target="_blank" rel="noopener">
         <div class="brochure-tile-img" style="background-image:url('https://blog.nomadassetcollective.com/wp-content/uploads/2026/05/case-study-gia-dinh-doanh-nhan-tp-hcm-va-18-thang-chinh-phuc-thuong-tru-hy-lap-bai-hoc-thuc-te-tu-hanh-trinh-cover-a76ca.jpg')"></div>
-        <span class="brochure-tile-score">NAC <span>79</span></span>
+        <span class="brochure-tile-score">NAC <span>74</span></span>
         <div class="brochure-tile-meta">
           <span class="brochure-tile-country" data-vi="🇬🇷 Hy Lạp" data-en="🇬🇷 Greece">🇬🇷 Hy Lạp</span>
           <span class="brochure-tile-name" data-vi="Golden Visa" data-en="Golden Visa">Golden Visa</span>
@@ -1189,7 +1510,7 @@ footer.footer {
       <!-- Cyprus -->
       <a class="brochure-tile" href="https://nomadassetcollective.com/brochures/chuong-trinh-dao-sip-rbi-residence-by-investment/" target="_blank" rel="noopener">
         <div class="brochure-tile-img" style="background-image:url('https://blog.nomadassetcollective.com/wp-content/uploads/2026/05/sip.webp')"></div>
-        <span class="brochure-tile-score">NAC <span>78</span></span>
+        <span class="brochure-tile-score">NAC <span>71</span></span>
         <div class="brochure-tile-meta">
           <span class="brochure-tile-country" data-vi="🇨🇾 Đảo Síp" data-en="🇨🇾 Cyprus">🇨🇾 Đảo Síp</span>
           <span class="brochure-tile-name" data-vi="Permanent Residency" data-en="Permanent Residency">Permanent Residency</span>
@@ -1203,7 +1524,7 @@ footer.footer {
       <!-- UAE -->
       <a class="brochure-tile" href="https://nomadassetcollective.com/brochures/chuong-trinh-uae-golden-visa-2/" target="_blank" rel="noopener">
         <div class="brochure-tile-img" style="background-image:url('https://blog.nomadassetcollective.com/wp-content/uploads/2026/05/dubai.webp')"></div>
-        <span class="brochure-tile-score">NAC <span>86</span></span>
+        <span class="brochure-tile-score">NAC <span>79</span></span>
         <div class="brochure-tile-meta">
           <span class="brochure-tile-country" data-vi="🇦🇪 UAE" data-en="🇦🇪 UAE">🇦🇪 UAE</span>
           <span class="brochure-tile-name" data-vi="Golden Visa" data-en="Golden Visa">Golden Visa</span>
@@ -1217,7 +1538,7 @@ footer.footer {
       <!-- UK -->
       <a class="brochure-tile" href="https://nomadassetcollective.com/brochures/chuong-trinh-uk-thuong-tru-visa-dau-tu-rbi/" target="_blank" rel="noopener">
         <div class="brochure-tile-img" style="background-image:url('https://blog.nomadassetcollective.com/wp-content/uploads/2026/05/london-scaled.jpg')"></div>
-        <span class="brochure-tile-score">NAC <span>83</span></span>
+        <span class="brochure-tile-score">NAC <span>73</span></span>
         <div class="brochure-tile-meta">
           <span class="brochure-tile-country" data-vi="🇬🇧 Anh Quốc" data-en="🇬🇧 United Kingdom">🇬🇧 Anh Quốc</span>
           <span class="brochure-tile-name" data-vi="Innovator Founder" data-en="Innovator Founder">Innovator Founder</span>
@@ -1231,7 +1552,7 @@ footer.footer {
       <!-- Malta -->
       <a class="brochure-tile" href="https://nomadassetcollective.com/brochures/chuong-trinh-malta-thuong-tru-nhan-rbi/" target="_blank" rel="noopener">
         <div class="brochure-tile-img" style="background-image:url('https://blog.nomadassetcollective.com/wp-content/uploads/2026/05/malta.webp')"></div>
-        <span class="brochure-tile-score">NAC <span>80</span></span>
+        <span class="brochure-tile-score">NAC <span>78</span></span>
         <div class="brochure-tile-meta">
           <span class="brochure-tile-country" data-vi="🇲🇹 Malta" data-en="🇲🇹 Malta">🇲🇹 Malta</span>
           <span class="brochure-tile-name" data-vi="MPRP" data-en="MPRP">MPRP</span>
@@ -1245,7 +1566,7 @@ footer.footer {
       <!-- St Kitts -->
       <a class="brochure-tile" href="https://nomadassetcollective.com/brochures/chuong-trinh-si-kitts-nevis-quoc-tich/" target="_blank" rel="noopener">
         <div class="brochure-tile-img" style="background-image:url('https://blog.nomadassetcollective.com/wp-content/uploads/2026/05/stkitt.jpg')"></div>
-        <span class="brochure-tile-score">NAC <span>81</span></span>
+        <span class="brochure-tile-score">NAC <span>75</span></span>
         <div class="brochure-tile-meta">
           <span class="brochure-tile-country" data-vi="🇰🇳 St. Kitts &amp; Nevis" data-en="🇰🇳 St. Kitts &amp; Nevis">🇰🇳 St. Kitts &amp; Nevis</span>
           <span class="brochure-tile-name" data-vi="Citizenship by Investment" data-en="Citizenship by Investment">Citizenship by Investment</span>
@@ -1259,7 +1580,7 @@ footer.footer {
       <!-- Thailand -->
       <a class="brochure-tile" href="https://nomadassetcollective.com/brochures/chuong-trinh-thai-lan-cu-tru-dai-han-ltr-rbi/" target="_blank" rel="noopener">
         <div class="brochure-tile-img" style="background-image:url('https://blog.nomadassetcollective.com/wp-content/uploads/2026/05/thailan.jpg')"></div>
-        <span class="brochure-tile-score">NAC <span>77</span></span>
+        <span class="brochure-tile-score">NAC <span>68</span></span>
         <div class="brochure-tile-meta">
           <span class="brochure-tile-country" data-vi="🇹🇭 Thái Lan" data-en="🇹🇭 Thailand">🇹🇭 Thái Lan</span>
           <span class="brochure-tile-name" data-vi="Long-Term Resident" data-en="Long-Term Resident">Long-Term Resident</span>
@@ -1273,7 +1594,7 @@ footer.footer {
       <!-- New Zealand -->
       <a class="brochure-tile" href="https://nomadassetcollective.com/brochures/chuong-trinh-new-zealand-rbi-dau-tu-di-tru/" target="_blank" rel="noopener">
         <div class="brochure-tile-img" style="background-image:url('https://blog.nomadassetcollective.com/wp-content/uploads/2026/05/newzea.jpg')"></div>
-        <span class="brochure-tile-score">NAC <span>85</span></span>
+        <span class="brochure-tile-score">NAC <span>76</span></span>
         <div class="brochure-tile-meta">
           <span class="brochure-tile-country" data-vi="🇳🇿 New Zealand" data-en="🇳🇿 New Zealand">🇳🇿 New Zealand</span>
           <span class="brochure-tile-name" data-vi="Active Investor Plus" data-en="Active Investor Plus">Active Investor Plus</span>
@@ -1287,7 +1608,7 @@ footer.footer {
       <!-- Panama -->
       <a class="brochure-tile" href="https://nomadassetcollective.com/brochures/chuong-trinh-panama-rbi-quyen-cu-tru-vinh-vien/" target="_blank" rel="noopener">
         <div class="brochure-tile-img" style="background-image:url('https://blog.nomadassetcollective.com/wp-content/uploads/2026/05/panama.webp')"></div>
-        <span class="brochure-tile-score">NAC <span>74</span></span>
+        <span class="brochure-tile-score">NAC <span>76</span></span>
         <div class="brochure-tile-meta">
           <span class="brochure-tile-country" data-vi="🇵🇦 Panama" data-en="🇵🇦 Panama">🇵🇦 Panama</span>
           <span class="brochure-tile-name" data-vi="Friendly Nations Visa" data-en="Friendly Nations Visa">Friendly Nations Visa</span>
@@ -1301,7 +1622,7 @@ footer.footer {
       <!-- Malaysia -->
       <a class="brochure-tile" href="https://nomadassetcollective.com/brochures/chuong-trinh-malaysia-rbi-mm2h-dau-tu-quyen-cu-tru/" target="_blank" rel="noopener">
         <div class="brochure-tile-img" style="background-image:url('https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=600&amp;q=85&amp;fit=crop')"></div>
-        <span class="brochure-tile-score">NAC <span>76</span></span>
+        <span class="brochure-tile-score">NAC <span>73</span></span>
         <div class="brochure-tile-meta">
           <span class="brochure-tile-country" data-vi="🇲🇾 Malaysia" data-en="🇲🇾 Malaysia">🇲🇾 Malaysia</span>
           <span class="brochure-tile-name" data-vi="MM2H" data-en="MM2H">MM2H</span>
@@ -1325,7 +1646,7 @@ footer.footer {
 <!-- ============================================================
      §02 — NAC RESIDENCE INDEX
 ============================================================ -->
-<section class="nac-index-section" id="nac-index">
+<section class="nac-index-section" id="nac-index" data-section="nac-index" data-section-label-vi="NAC Residence Index" data-section-label-en="NAC Residence Index">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow" style="color:var(--purple)">§ 02 · <span data-vi="Phương Pháp Luận NAC" data-en="The NAC Methodology">Phương Pháp Luận NAC</span></span>
@@ -1374,7 +1695,7 @@ footer.footer {
 <!-- ============================================================
      §03 — PROPERTY HUB
 ============================================================ -->
-<section class="property-hub" id="property-hub">
+<section class="property-hub" id="property-hub" data-section="property-hub" data-section-label-vi="Property Hub · BĐS Curated" data-section-label-en="Property Hub · Listings">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">§ 03 · <span data-vi="Property Hub · Live Listings" data-en="Property Hub · Live Listings">Property Hub · Live Listings</span></span>
@@ -1461,7 +1782,7 @@ footer.footer {
 <!-- ============================================================
      §04 — NAC TIMES
 ============================================================ -->
-<section class="nac-times" id="nac-times">
+<section class="nac-times" id="nac-times" data-section="nac-times" data-section-label-vi="NAC Times · Editorial" data-section-label-en="NAC Times · Editorial">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">§ 04 · <span data-vi="NAC Times · Editorial" data-en="NAC Times · Editorial">NAC Times · Editorial</span></span>
@@ -1531,7 +1852,7 @@ footer.footer {
 <!-- ============================================================
      §05 — PROCESS
 ============================================================ -->
-<section class="process" id="process">
+<section class="process" id="process" data-section="process" data-section-label-vi="Quy Trình NAC" data-section-label-en="The NAC Process">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">§ 05 · <span data-vi="Quy Trình NAC" data-en="The NAC Process">Quy Trình NAC</span></span>
@@ -1576,12 +1897,13 @@ footer.footer {
 <!-- ============================================================
      §06 — FOUNDER (Ray Vũ)
 ============================================================ -->
-<section class="founder" id="founder">
+<section class="founder" id="founder" data-section="founder" data-section-label-vi="Founder · Ray Vũ" data-section-label-en="Founder · Ray Vu">
   <div class="wrap">
     <div class="founder-spread reveal">
       <div class="founder-portrait">
+        <img src="https://nomadassetcollective.com/wp-content/uploads/2026/03/ray-transparent-683x1024.png" alt="Ray Vũ — Founder, Nomad Asset Collective" loading="lazy">
         <span class="ribbon">IMC Certified Expert</span>
-        <span data-vi="Ảnh: Ray Vũ — Founder, NAC" data-en="Photo: Ray Vu — Founder, NAC">Ảnh: Ray Vũ — Founder, NAC</span>
+        <span class="credit" data-vi="Ray Vũ · Founder NAC" data-en="Ray Vu · Founder NAC">Ray Vũ · Founder NAC</span>
       </div>
       <div class="founder-copy">
         <span class="eyebrow">§ 06 · <span data-vi="Người Đồng Hành" data-en="The Founder">Người Đồng Hành</span></span>
@@ -1617,7 +1939,7 @@ footer.footer {
 <!-- ============================================================
      §07 — TOOLS
 ============================================================ -->
-<section class="tools" id="tools">
+<section class="tools" id="tools" data-section="tools" data-section-label-vi="Công Cụ NAC" data-section-label-en="The NAC Toolkit">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">§ 07 · <span data-vi="Công Cụ NAC" data-en="The NAC Toolkit">Công Cụ NAC</span></span>
@@ -1667,7 +1989,7 @@ footer.footer {
 <!-- ============================================================
      §08 — SOCIAL PROOF
 ============================================================ -->
-<section class="social-proof">
+<section class="social-proof" data-section="social-proof" data-section-label-vi="Social Proof · Instagram" data-section-label-en="Social Proof · Instagram">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">§ 08 · <span data-vi="Cộng Đồng NAC" data-en="The Community">Cộng Đồng NAC</span></span>
@@ -1707,7 +2029,7 @@ footer.footer {
 <!-- ============================================================
      FINAL CTA
 ============================================================ -->
-<section class="final-cta">
+<section class="final-cta" data-section="final-cta" data-section-label-vi="CTA Cuối Trang" data-section-label-en="Final CTA">
   <div class="wrap-narrow">
     <span class="eyebrow" data-vi="Bước Tiếp Theo" data-en="The Next Move">Bước Tiếp Theo</span>
     <h2 data-vi="Bắt đầu với một <em>cuộc trò chuyện</em> 30 phút." data-en="Begin with a single <em>30-minute</em> conversation.">Bắt đầu với một <em>cuộc trò chuyện</em> 30 phút.</h2>
@@ -2022,6 +2344,288 @@ footer.footer {
 
   makeGlobe(document.getElementById('heroGlobe'),  { hue: 'navy' });
   makeGlobe(document.getElementById('indexGlobe'), { hue: 'purple' });
+})();
+</script>
+
+<!-- ============================================================
+     POLISH: mobile drawer · active nav · KPI counter · staging
+============================================================ -->
+<script>
+(function(){
+  // ---------------- Mobile nav drawer ----------------
+  var burger = document.getElementById('navBurger');
+  var drawer = document.getElementById('navDrawer');
+  var drawerClose = document.getElementById('navDrawerClose');
+  function openDrawer(){ drawer.classList.add('is-open'); drawer.setAttribute('aria-hidden','false'); }
+  function closeDrawer(){ drawer.classList.remove('is-open'); drawer.setAttribute('aria-hidden','true'); }
+  if (burger) burger.addEventListener('click', openDrawer);
+  if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
+  if (drawer) drawer.addEventListener('click', function(e){ if (e.target === drawer) closeDrawer(); });
+  drawer.querySelectorAll('.nav-drawer-links a').forEach(function(a){
+    a.addEventListener('click', closeDrawer);
+  });
+
+  // ---------------- Active section highlight ----------------
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-links a[href^="#"]'));
+  var sectionMap = {};
+  navLinks.forEach(function(a){
+    var id = a.getAttribute('href').slice(1);
+    var sec = document.getElementById(id);
+    if (sec) sectionMap[id] = { link: a, section: sec };
+  });
+  if ('IntersectionObserver' in window) {
+    var navIo = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        var id = e.target.id;
+        if (!sectionMap[id]) return;
+        if (e.isIntersecting) {
+          navLinks.forEach(function(l){ l.classList.remove('is-active'); });
+          sectionMap[id].link.classList.add('is-active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+    Object.keys(sectionMap).forEach(function(id){ navIo.observe(sectionMap[id].section); });
+  }
+
+  // ---------------- KPI counter animation ----------------
+  var counters = document.querySelectorAll('[data-count]');
+  function animateCount(el){
+    if (el.dataset.counted === '1') return;
+    el.dataset.counted = '1';
+    var target = parseInt(el.getAttribute('data-count'), 10) || 0;
+    var suffix = el.getAttribute('data-count-suffix') || '';
+    var hasEm = /<em>/i.test(el.innerHTML);
+    var dur = 1400; var start = null;
+    function tick(ts){
+      if (!start) start = ts;
+      var p = Math.min(1, (ts - start) / dur);
+      var eased = 1 - Math.pow(1 - p, 3);
+      var val = Math.round(target * eased);
+      var text = val + suffix;
+      el.innerHTML = hasEm ? '<em>' + text + '</em>' : text;
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  if ('IntersectionObserver' in window) {
+    var cio = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { animateCount(e.target); cio.unobserve(e.target); }
+      });
+    }, { threshold: 0.4 });
+    counters.forEach(function(el){ cio.observe(el); });
+  }
+
+  // ---------------- Staging panel (layout editor) ----------------
+  var STAGE_KEY = 'nac-layout-v1';
+  var panel = document.getElementById('stagePanel');
+  var list  = document.getElementById('stageList');
+  var toggleBtn = document.getElementById('stageToggle');
+  var closeBtn = document.getElementById('stageClose');
+  var resetBtn = document.getElementById('stageReset');
+  var saveBtn  = document.getElementById('stageSave');
+
+  // Section nodes (in DOM order). Hero is the <header>; rest are <section>s.
+  function getSections(){
+    return Array.prototype.slice.call(document.querySelectorAll('[data-section]'));
+  }
+  var defaultOrder = getSections().map(function(s){ return s.getAttribute('data-section'); });
+
+  function readState(){
+    try {
+      var raw = localStorage.getItem(STAGE_KEY);
+      if (!raw) return { order: defaultOrder.slice(), hidden: [] };
+      var parsed = JSON.parse(raw);
+      var order = (parsed && Array.isArray(parsed.order)) ? parsed.order : defaultOrder.slice();
+      var hidden = (parsed && Array.isArray(parsed.hidden)) ? parsed.hidden : [];
+      // Add any new sections at the end so updates don't drop nodes
+      defaultOrder.forEach(function(k){ if (order.indexOf(k) === -1) order.push(k); });
+      order = order.filter(function(k){ return defaultOrder.indexOf(k) !== -1; });
+      return { order: order, hidden: hidden };
+    } catch(e) {
+      return { order: defaultOrder.slice(), hidden: [] };
+    }
+  }
+  function writeState(s){
+    try { localStorage.setItem(STAGE_KEY, JSON.stringify(s)); } catch(e){}
+  }
+
+  function applyLayout(state){
+    // Reorder DOM nodes
+    var sections = getSections();
+    var byKey = {};
+    sections.forEach(function(s){ byKey[s.getAttribute('data-section')] = s; });
+    var anchor = sections[0];
+    if (!anchor) return;
+    var parent = anchor.parentNode;
+    // Re-append in order; non-listed go to the end
+    state.order.forEach(function(k){
+      var n = byKey[k];
+      if (n) parent.appendChild(n);
+    });
+    // Apply visibility
+    sections.forEach(function(s){
+      var k = s.getAttribute('data-section');
+      if (state.hidden.indexOf(k) !== -1) s.setAttribute('data-section-hidden', '1');
+      else s.removeAttribute('data-section-hidden');
+    });
+  }
+
+  function currentLang(){ return document.documentElement.lang === 'en' ? 'en' : 'vi'; }
+
+  function renderList(){
+    if (!list) return;
+    list.innerHTML = '';
+    var state = readState();
+    var lang = currentLang();
+    state.order.forEach(function(key, idx){
+      var sec = document.querySelector('[data-section="'+ key +'"]');
+      if (!sec) return;
+      var label = sec.getAttribute('data-section-label-' + lang) || sec.getAttribute('data-section-label-vi') || key;
+      var hidden = state.hidden.indexOf(key) !== -1;
+      var item = document.createElement('div');
+      item.className = 'stage-item';
+      item.setAttribute('draggable', 'true');
+      item.setAttribute('data-key', key);
+      if (hidden) item.setAttribute('data-hidden', '1');
+      item.innerHTML =
+        '<span class="stage-grip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">' +
+        '<circle cx="9" cy="6" r="1.2" fill="currentColor"/><circle cx="9" cy="12" r="1.2" fill="currentColor"/><circle cx="9" cy="18" r="1.2" fill="currentColor"/>' +
+        '<circle cx="15" cy="6" r="1.2" fill="currentColor"/><circle cx="15" cy="12" r="1.2" fill="currentColor"/><circle cx="15" cy="18" r="1.2" fill="currentColor"/></svg></span>' +
+        '<span class="stage-item-num">§' + String(idx + 1).padStart(2, '0') + '</span>' +
+        '<span class="stage-item-label">' + label + '</span>' +
+        '<button class="stage-eye" aria-label="Toggle">' +
+        (hidden
+          ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3l18 18M10.6 10.6a2 2 0 0 0 2.8 2.8M9.9 5.1A10 10 0 0 1 12 5c5 0 9 4 10 7-.5 1.5-1.6 3.3-3.2 4.7M6.4 7.4C4 9 2.6 11.2 2 12c1 3 5 7 10 7 1.8 0 3.5-.4 5-1.2"/></svg>'
+          : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>'
+        ) +
+        '</button>';
+
+      // Click on item body scrolls to section (but not on eye/grip)
+      item.addEventListener('click', function(e){
+        if (e.target.closest('.stage-eye') || e.target.closest('.stage-grip')) return;
+        sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+
+      // Eye toggle
+      item.querySelector('.stage-eye').addEventListener('click', function(e){
+        e.stopPropagation();
+        var st = readState();
+        var i = st.hidden.indexOf(key);
+        if (i === -1) st.hidden.push(key); else st.hidden.splice(i, 1);
+        writeState(st);
+        applyLayout(st);
+        renderList();
+      });
+
+      // Drag-and-drop
+      item.addEventListener('dragstart', function(e){
+        item.classList.add('is-dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        try { e.dataTransfer.setData('text/plain', key); } catch(_){}
+      });
+      item.addEventListener('dragend', function(){
+        item.classList.remove('is-dragging');
+        list.querySelectorAll('.stage-item').forEach(function(n){ n.classList.remove('is-over'); });
+      });
+      item.addEventListener('dragover', function(e){
+        e.preventDefault();
+        item.classList.add('is-over');
+      });
+      item.addEventListener('dragleave', function(){ item.classList.remove('is-over'); });
+      item.addEventListener('drop', function(e){
+        e.preventDefault();
+        item.classList.remove('is-over');
+        var dragging = list.querySelector('.stage-item.is-dragging');
+        if (!dragging || dragging === item) return;
+        var st = readState();
+        var fromKey = dragging.getAttribute('data-key');
+        var toKey = item.getAttribute('data-key');
+        var fi = st.order.indexOf(fromKey);
+        var ti = st.order.indexOf(toKey);
+        if (fi === -1 || ti === -1) return;
+        st.order.splice(fi, 1);
+        st.order.splice(ti, 0, fromKey);
+        writeState(st);
+        applyLayout(st);
+        renderList();
+      });
+
+      list.appendChild(item);
+    });
+  }
+
+  function openPanel(){
+    panel.classList.add('is-open');
+    panel.setAttribute('aria-hidden', 'false');
+    renderList();
+  }
+  function closePanel(){
+    panel.classList.remove('is-open');
+    panel.setAttribute('aria-hidden', 'true');
+  }
+
+  // Enable stage mode via ?edit=1 OR Cmd/Ctrl + Shift + E
+  function shouldEnable(){
+    try {
+      var p = new URLSearchParams(window.location.search);
+      if (p.get('edit') === '1') return true;
+    } catch(_){}
+    try {
+      if (localStorage.getItem('nac-stage-enabled') === '1') return true;
+    } catch(_){}
+    return false;
+  }
+  function enableStage(){
+    document.body.classList.add('stage-enabled');
+    try { localStorage.setItem('nac-stage-enabled', '1'); } catch(_){}
+  }
+  function disableStage(){
+    document.body.classList.remove('stage-enabled');
+    try { localStorage.removeItem('nac-stage-enabled'); } catch(_){}
+    closePanel();
+  }
+
+  if (toggleBtn) toggleBtn.addEventListener('click', function(){
+    if (panel.classList.contains('is-open')) closePanel(); else openPanel();
+  });
+  if (closeBtn) closeBtn.addEventListener('click', closePanel);
+  if (resetBtn) resetBtn.addEventListener('click', function(){
+    var s = { order: defaultOrder.slice(), hidden: [] };
+    writeState(s);
+    applyLayout(s);
+    renderList();
+  });
+  if (saveBtn) saveBtn.addEventListener('click', function(){
+    // Already persisted on every drop/eye-click — flash a confirmation.
+    var orig = saveBtn.textContent;
+    saveBtn.textContent = currentLang() === 'en' ? 'Saved ✓' : 'Đã Lưu ✓';
+    setTimeout(function(){ saveBtn.textContent = orig; }, 1400);
+  });
+
+  // Keyboard shortcut: Cmd/Ctrl + Shift + E to toggle stage mode
+  window.addEventListener('keydown', function(e){
+    var key = (e.key || '').toLowerCase();
+    if ((e.metaKey || e.ctrlKey) && e.shiftKey && key === 'e'){
+      e.preventDefault();
+      if (document.body.classList.contains('stage-enabled')){
+        if (panel.classList.contains('is-open')) disableStage();
+        else openPanel();
+      } else {
+        enableStage();
+        openPanel();
+      }
+    }
+  });
+
+  // Apply saved layout immediately (even if stage mode is off)
+  applyLayout(readState());
+  if (shouldEnable()) enableStage();
+
+  // Re-render list label when language switches
+  document.querySelectorAll('.lang-pill button').forEach(function(b){
+    b.addEventListener('click', function(){ if (panel.classList.contains('is-open')) renderList(); });
+  });
 })();
 </script>
 
