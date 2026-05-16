@@ -298,6 +298,7 @@ section { padding: 6rem 0; position: relative; }
 /* Globe pane */
 .hero-globe-wrap {
   position: relative;
+  width: 100%;
   aspect-ratio: 1; max-width: 560px; margin: 0 auto;
   background:
     radial-gradient(80% 65% at 50% 38%, rgba(196,146,44,.10) 0%, transparent 65%),
@@ -2377,17 +2378,19 @@ section[data-section-hidden="1"], header[data-section-hidden="1"] { display: non
 
   // 10 NAC hub cities. Coordinates are normalized 0–1 on the canvas.
   // accent = country brand-aligned colour; land = landmark icon key.
+  // Positions are spread geographically — Europe (left), Mediterranean
+  // (mid), Gulf (mid-right), Asia (right), Oceania (bottom-right).
   var CITIES = [
-    { name: 'London',    x: 0.27, y: 0.30, accent: '#5b3aa8', land: 'tower' },
-    { name: 'Lisbon',    x: 0.20, y: 0.43, accent: '#c4922c', land: 'church' },
-    { name: 'Valletta',  x: 0.38, y: 0.52, accent: '#d97c44', land: 'fort' },
-    { name: 'Athens',    x: 0.46, y: 0.47, accent: '#c4922c', land: 'temple' },
-    { name: 'Istanbul',  x: 0.52, y: 0.41, accent: '#5b3aa8', land: 'mosque' },
-    { name: 'Nicosia',   x: 0.55, y: 0.54, accent: '#1eb955', land: 'dome' },
-    { name: 'Dubai',     x: 0.63, y: 0.58, accent: '#c4922c', land: 'spire' },
-    { name: 'Bangkok',   x: 0.78, y: 0.62, accent: '#1eb955', land: 'pagoda' },
-    { name: 'KL',        x: 0.83, y: 0.74, accent: '#1eb955', land: 'twin' },
-    { name: 'Wellington',x: 0.90, y: 0.91, accent: '#1800ad', land: 'beehive' }
+    { name: 'London',    x: 0.18, y: 0.16, accent: '#5b3aa8', land: 'tower' },
+    { name: 'Lisbon',    x: 0.10, y: 0.40, accent: '#c4922c', land: 'church' },
+    { name: 'Valletta',  x: 0.24, y: 0.66, accent: '#d97c44', land: 'fort' },
+    { name: 'Istanbul',  x: 0.42, y: 0.20, accent: '#5b3aa8', land: 'mosque' },
+    { name: 'Athens',    x: 0.40, y: 0.46, accent: '#c4922c', land: 'temple' },
+    { name: 'Nicosia',   x: 0.52, y: 0.68, accent: '#1eb955', land: 'dome' },
+    { name: 'Dubai',     x: 0.66, y: 0.40, accent: '#c4922c', land: 'spire' },
+    { name: 'Bangkok',   x: 0.82, y: 0.22, accent: '#1eb955', land: 'pagoda' },
+    { name: 'Kuala Lumpur', x: 0.86, y: 0.50, accent: '#1eb955', land: 'twin' },
+    { name: 'Wellington', x: 0.78, y: 0.86, accent: '#1800ad', land: 'beehive' }
   ];
 
   var fromIdx = 0, toIdx = 3;     // London → Athens first
@@ -2539,27 +2542,29 @@ section[data-section-hidden="1"], header[data-section-hidden="1"] { display: non
   function drawCity(city, highlight){
     var cx = city.x * W;
     var cy = city.y * H;
-    var s = Math.min(W, H) * 0.013;
+    var s = Math.min(W, H) * 0.0095;
     // platform shadow
     ctx.fillStyle = highlight ? 'rgba(196,146,44,.22)' : 'rgba(15,26,54,.08)';
     ctx.beginPath();
-    ctx.ellipse(cx, cy + 5*s, 11*s, 3.5*s, 0, 0, Math.PI*2);
+    ctx.ellipse(cx, cy + 5*s, 10*s, 3*s, 0, 0, Math.PI*2);
     ctx.fill();
     // 3 iso buildings (varied heights)
     var col = city.accent;
-    isoBox(cx - 5.5*s, cy + 0*s, 2.8*s, 5.5*s, shade(col, 0.55));
-    isoBox(cx,         cy + 0*s, 3.2*s, 8*s,   shade(col, 0.42));
-    isoBox(cx + 5*s,   cy + 0*s, 2.6*s, 4.5*s, shade(col, 0.6));
+    isoBox(cx - 4.5*s, cy + 0*s, 2.4*s, 4.5*s, shade(col, 0.55));
+    isoBox(cx,         cy + 0*s, 2.8*s, 7*s,   shade(col, 0.42));
+    isoBox(cx + 4*s,   cy + 0*s, 2.2*s, 3.5*s, shade(col, 0.6));
     // landmark above the centre building
-    landmark(city.land, cx, cy - 5*s, s, col);
+    landmark(city.land, cx, cy - 4.5*s, s, col);
     // label
     ctx.fillStyle = highlight ? '#c4922c' : '#0f1a36';
-    ctx.font = '600 ' + Math.round(s*5) + 'px Inter, sans-serif';
+    ctx.font = '600 ' + Math.round(s*5.2) + 'px Inter, sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText(city.name.toUpperCase(), cx, cy + 12*s);
+    ctx.textBaseline = 'top';
+    ctx.fillText(city.name.toUpperCase(), cx, cy + 10*s);
+    ctx.textBaseline = 'alphabetic';
     // hub dot
     ctx.fillStyle = highlight ? '#c4922c' : '#5b3aa8';
-    ctx.beginPath(); ctx.arc(cx, cy + 6*s, 1.6*s, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(cx, cy + 5.5*s, 1.4*s, 0, Math.PI*2); ctx.fill();
   }
 
   // ---- bezier point on arc + tangent ----
@@ -2948,19 +2953,19 @@ section[data-section-hidden="1"], header[data-section-hidden="1"] { display: non
   }
 
   function applyLayout(state){
-    // Reorder DOM nodes
+    // Reorder DOM nodes within the section region, between the first
+    // section and whatever sits after the last one (footer / mobile CTA).
     var sections = getSections();
+    if (!sections.length) return;
     var byKey = {};
     sections.forEach(function(s){ byKey[s.getAttribute('data-section')] = s; });
-    var anchor = sections[0];
-    if (!anchor) return;
-    var parent = anchor.parentNode;
-    // Re-append in order; non-listed go to the end
+    var lastSec = sections[sections.length - 1];
+    var parent = lastSec.parentNode;
+    var refAfter = lastSec.nextSibling;
     state.order.forEach(function(k){
       var n = byKey[k];
-      if (n) parent.appendChild(n);
+      if (n) parent.insertBefore(n, refAfter);
     });
-    // Apply visibility
     sections.forEach(function(s){
       var k = s.getAttribute('data-section');
       if (state.hidden.indexOf(k) !== -1) s.setAttribute('data-section-hidden', '1');
