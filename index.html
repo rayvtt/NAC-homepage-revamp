@@ -945,10 +945,54 @@ section { padding: 6rem 0; position: relative; }
 .proof-ig-tile:hover { transform: scale(1.03); z-index: 2; }
 .proof-ig-tile::after {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(91,58,168,.0) 60%, rgba(91,58,168,.55) 100%);
+  background: linear-gradient(135deg, rgba(24,0,173,.0) 55%, rgba(24,0,173,.55) 100%);
   opacity: 0; transition: opacity .25s var(--ease);
 }
 .proof-ig-tile:hover::after { opacity: 1; }
+.proof-ig-tile .ig-tag {
+  position: absolute; left: .55rem; bottom: .55rem; z-index: 2;
+  font-family: var(--ff-mono); font-size: .52rem; letter-spacing: .14em;
+  text-transform: uppercase; color: #fff;
+  background: rgba(15,26,54,.65);
+  padding: .25rem .45rem;
+  border-radius: 4px;
+  opacity: 0; transform: translateY(4px);
+  transition: opacity .25s var(--ease), transform .25s var(--ease);
+}
+.proof-ig-tile:hover .ig-tag { opacity: 1; transform: translateY(0); }
+
+.ig-profile-row {
+  display: flex; align-items: center; gap: .75rem;
+  padding: .85rem 0 1rem;
+  margin-bottom: .35rem;
+  border-bottom: 1px solid var(--line);
+}
+.ig-avatar {
+  width: 46px; height: 46px; border-radius: 50%;
+  background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  box-shadow: 0 4px 14px -4px rgba(220,39,67,.4);
+}
+.ig-avatar svg { width: 22px; height: 22px; }
+.ig-handle { flex: 1; min-width: 0; }
+.ig-handle b {
+  font-family: var(--ff-display); font-weight: 500;
+  font-size: 1.1rem; color: var(--display); display: block;
+  letter-spacing: -.005em;
+}
+.ig-handle span {
+  font-family: var(--ff-mono); font-size: .55rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted);
+}
+.ig-follow {
+  padding: .45rem .9rem; border-radius: 8px;
+  background: #1800ad; color: #fff;
+  font-family: var(--ff-mono); font-size: .6rem; letter-spacing: .14em;
+  text-transform: uppercase; font-weight: 600;
+  transition: background .2s var(--ease), transform .2s var(--ease);
+}
+.ig-follow:hover { background: #0d0073; transform: translateY(-1px); }
 
 .proof-ig-foot {
   margin-top: 1rem; text-align: center;
@@ -2022,18 +2066,33 @@ section[data-section-hidden="1"], header[data-section-hidden="1"] { display: non
       </div>
 
       <div>
+        <div class="ig-profile-row">
+          <div class="ig-avatar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+              <rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="ig-handle">
+            <b>@nac.global</b>
+            <span data-vi="Nomad Asset Collective · Trang chính thức" data-en="Nomad Asset Collective · Official">Nomad Asset Collective · Trang chính thức</span>
+          </div>
+          <a class="ig-follow" href="https://www.instagram.com/NAC.GLOBAL" target="_blank" rel="noopener" data-vi="Theo Dõi" data-en="Follow">Theo Dõi</a>
+        </div>
         <div class="proof-ig-grid">
-          <a class="proof-ig-tile" href="https://instagram.com/nac.global" target="_blank" rel="noopener" style="background-image:url('https://blog.nomadassetcollective.com/wp-content/uploads/2026/05/dubai.webp')"></a>
-          <a class="proof-ig-tile" href="https://instagram.com/nac.global" target="_blank" rel="noopener" style="background-image:url('https://blog.nomadassetcollective.com/wp-content/uploads/2026/05/sip.webp')"></a>
-          <a class="proof-ig-tile" href="https://instagram.com/nac.global" target="_blank" rel="noopener" style="background-image:url('https://blog.nomadassetcollective.com/wp-content/uploads/2026/05/london-scaled.jpg')"></a>
-          <a class="proof-ig-tile" href="https://instagram.com/nac.global" target="_blank" rel="noopener" style="background-image:url('https://blog.nomadassetcollective.com/wp-content/uploads/2026/05/stkitt.jpg')"></a>
-          <a class="proof-ig-tile" href="https://instagram.com/nac.global" target="_blank" rel="noopener" style="background-image:url('https://blog.nomadassetcollective.com/wp-content/uploads/2026/05/thailan.jpg')"></a>
-          <a class="proof-ig-tile" href="https://instagram.com/nac.global" target="_blank" rel="noopener" style="background-image:url('https://blog.nomadassetcollective.com/wp-content/uploads/2026/05/panama.webp')"></a>
+          <a class="proof-ig-tile" href="https://www.instagram.com/NAC.GLOBAL" target="_blank" rel="noopener" style="background-image:url('https://nomadassetcollective.com/wp-content/uploads/2026/01/Your-paragraph-text-10.png')"><span class="ig-tag">Lisbon</span></a>
+          <a class="proof-ig-tile" href="https://www.instagram.com/NAC.GLOBAL" target="_blank" rel="noopener" style="background-image:url('https://nomadassetcollective.com/wp-content/uploads/2026/01/Your-paragraph-text-9.png')"><span class="ig-tag">Dubai</span></a>
+          <a class="proof-ig-tile" href="https://www.instagram.com/NAC.GLOBAL" target="_blank" rel="noopener" style="background-image:url('https://nomadassetcollective.com/wp-content/uploads/2026/01/Your-paragraph-text-4.png')"><span class="ig-tag">Athens</span></a>
+          <a class="proof-ig-tile" href="https://www.instagram.com/NAC.GLOBAL" target="_blank" rel="noopener" style="background-image:url('https://blog.nomadassetcollective.com/wp-content/uploads/2026/05/london-scaled.jpg')"><span class="ig-tag">London</span></a>
+          <a class="proof-ig-tile" href="https://www.instagram.com/NAC.GLOBAL" target="_blank" rel="noopener" style="background-image:url('https://nomadassetcollective.com/wp-content/uploads/2026/01/Your-paragraph-text-6.png')"><span class="ig-tag">Istanbul</span></a>
+          <a class="proof-ig-tile" href="https://www.instagram.com/NAC.GLOBAL" target="_blank" rel="noopener" style="background-image:url('https://blog.nomadassetcollective.com/wp-content/uploads/2026/05/malta.webp')"><span class="ig-tag">Valletta</span></a>
+          <a class="proof-ig-tile" href="https://www.instagram.com/NAC.GLOBAL" target="_blank" rel="noopener" style="background-image:url('https://blog.nomadassetcollective.com/wp-content/uploads/2025/11/Cyprus.png')"><span class="ig-tag">Nicosia</span></a>
+          <a class="proof-ig-tile" href="https://www.instagram.com/NAC.GLOBAL" target="_blank" rel="noopener" style="background-image:url('https://blog.nomadassetcollective.com/wp-content/uploads/2026/05/stkitt.jpg')"><span class="ig-tag">St. Kitts</span></a>
+          <a class="proof-ig-tile" href="https://www.instagram.com/NAC.GLOBAL" target="_blank" rel="noopener" style="background-image:url('https://blog.nomadassetcollective.com/wp-content/uploads/2026/05/newzea.jpg')"><span class="ig-tag">Wellington</span></a>
         </div>
         <div class="proof-ig-foot">
-          <a href="https://instagram.com/nac.global" target="_blank" rel="noopener">
+          <a href="https://www.instagram.com/NAC.GLOBAL" target="_blank" rel="noopener">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.43.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.43-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63a5.86 5.86 0 0 0-2.13 1.38A5.86 5.86 0 0 0 .63 4.14c-.3.76-.5 1.64-.56 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91a5.86 5.86 0 0 0 1.38 2.13 5.86 5.86 0 0 0 2.13 1.38c.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.86 5.86 0 0 0 2.13-1.38 5.86 5.86 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.86 5.86 0 0 0-1.38-2.13A5.86 5.86 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm6.41-11.85a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44z"/></svg>
-            <span data-vi="Theo Dõi @nac.global" data-en="Follow @nac.global">Theo Dõi @nac.global</span>
+            <span data-vi="Xem Toàn Bộ Trên @nac.global" data-en="See more on @nac.global">Xem Toàn Bộ Trên @nac.global</span>
           </a>
         </div>
       </div>
@@ -2364,10 +2423,18 @@ section[data-section-hidden="1"], header[data-section-hidden="1"] { display: non
 </script>
 
 <!-- ============================================================
-     HERO FLIGHT MAP
-     Iso-city skyline of 10 NAC hub cities. A paper plane flies between
-     pairs; mid-flight, a ticket pops, a passport is stamped with a
-     check, and the plane carries the passport to the destination.
+     HERO FLIGHT MAP — v2
+     Atlas/globe backdrop with curved lat-lon lines. A commercial-
+     airliner silhouette flies along high arched flight paths
+     between NAC hub cities. At any moment only three cities are
+     in the scene: the current "from" + "to" at full opacity, plus
+     the upcoming "next" preview at low opacity. Cities fade in and
+     out as the plane progresses, so the eye follows the journey
+     instead of staring at the whole atlas at once.
+     Each city is a richer iso vignette: ground patch, mixed-height
+     building cluster, signage, landmark, road with a small vehicle,
+     and trees. Mid-flight ticket → passport → check → carry pickup
+     event is preserved.
 ============================================================ -->
 <script>
 (function(){
@@ -2376,30 +2443,47 @@ section[data-section-hidden="1"], header[data-section-hidden="1"] { display: non
   var ctx = canvas.getContext('2d');
   var W = 0, H = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-  // 10 NAC hub cities. Coordinates are normalized 0–1 on the canvas.
-  // accent = country brand-aligned colour; land = landmark icon key.
+  // NAC palette — main blue #1800ad with white / orange / green accents.
+  var BLUE   = '#1800ad';
+  var BLUE_S = '#3826c4';  // soft tint
+  var BLUE_D = '#0d0073';  // deep
+  var ORANGE = '#d97c44';
+  var GREEN  = '#1eb955';
+  var WHITE  = '#fafaf7';
+  var CREAM  = '#f5efe1';
+  var INK    = '#0f1a36';  // text only
+
+  // 10 NAC hub cities. accent = primary building tone for the city's
+  // tallest cluster; land = unique landmark; vehicle = small iso bus.
   // Positions are spread geographically — Europe (left), Mediterranean
   // (mid), Gulf (mid-right), Asia (right), Oceania (bottom-right).
   var CITIES = [
-    { name: 'London',    x: 0.18, y: 0.16, accent: '#5b3aa8', land: 'tower' },
-    { name: 'Lisbon',    x: 0.10, y: 0.40, accent: '#c4922c', land: 'church' },
-    { name: 'Valletta',  x: 0.24, y: 0.66, accent: '#d97c44', land: 'fort' },
-    { name: 'Istanbul',  x: 0.42, y: 0.20, accent: '#5b3aa8', land: 'mosque' },
-    { name: 'Athens',    x: 0.40, y: 0.46, accent: '#c4922c', land: 'temple' },
-    { name: 'Nicosia',   x: 0.52, y: 0.68, accent: '#1eb955', land: 'dome' },
-    { name: 'Dubai',     x: 0.66, y: 0.40, accent: '#c4922c', land: 'spire' },
-    { name: 'Bangkok',   x: 0.82, y: 0.22, accent: '#1eb955', land: 'pagoda' },
-    { name: 'Kuala Lumpur', x: 0.86, y: 0.50, accent: '#1eb955', land: 'twin' },
-    { name: 'Wellington', x: 0.78, y: 0.86, accent: '#1800ad', land: 'beehive' }
+    { name: 'London',       x: 0.13, y: 0.16, land: 'tower',   vehicle: ORANGE },
+    { name: 'Lisbon',       x: 0.08, y: 0.46, land: 'church',  vehicle: GREEN  },
+    { name: 'Valletta',     x: 0.20, y: 0.78, land: 'fort',    vehicle: ORANGE },
+    { name: 'Istanbul',     x: 0.45, y: 0.18, land: 'mosque',  vehicle: ORANGE },
+    { name: 'Athens',       x: 0.38, y: 0.50, land: 'temple',  vehicle: WHITE  },
+    { name: 'Nicosia',      x: 0.56, y: 0.80, land: 'dome',    vehicle: GREEN  },
+    { name: 'Dubai',        x: 0.70, y: 0.40, land: 'spire',   vehicle: ORANGE },
+    { name: 'Bangkok',      x: 0.85, y: 0.18, land: 'pagoda',  vehicle: GREEN  },
+    { name: 'Kuala Lumpur', x: 0.90, y: 0.55, land: 'twin',    vehicle: ORANGE },
+    { name: 'Wellington',   x: 0.84, y: 0.86, land: 'beehive', vehicle: GREEN  }
   ];
 
-  var fromIdx = 0, toIdx = 3;     // London → Athens first
-  var legStart = 0, legDur = 7400;
-  var pauseAfter = 1100;
+  // Only 3 cities visible at a time — current "from", current "to",
+  // and the upcoming "next" preview at low opacity.
+  var fromIdx = 0;   // London
+  var toIdx   = 4;   // Athens
+  var nextIdx = 3;   // Istanbul (the leg after this one)
+  var cityAlpha = {};
+  cityAlpha[fromIdx] = 1; cityAlpha[toIdx] = 1; cityAlpha[nextIdx] = 0.32;
+
+  var legStart = 0, legDur = 8800;
+  var pauseAfter = 1300;
   var inPause = false;
   var pauseUntil = 0;
   var trail = [];                 // {x,y,t}
-  var trailMaxAge = 1900;
+  var trailMaxAge = 2200;
 
   function resize(){
     var rect = canvas.getBoundingClientRect();
@@ -2415,15 +2499,48 @@ section[data-section-hidden="1"], header[data-section-hidden="1"] { display: non
     return 'rgb('+Math.round(r[0]+(f-r[0])*t)+','+Math.round(r[1]+(f-r[1])*t)+','+Math.round(r[2]+(f-r[2])*t)+')';
   }
 
-  // ---- background grid ----
-  function drawGrid(){
-    ctx.strokeStyle = 'rgba(15,26,54,.045)';
+  // ---- atlas / globe backdrop ----
+  // A faded wireframe sphere with curved lat/lon lines, suggesting an
+  // Earth-from-orbit chart without being a literal 3D globe. The same
+  // visual language as the NAC Residence Index banner globe.
+  function drawAtlas(now){
+    var cx = W * 0.5, cy = H * 0.52;
+    var R = Math.min(W, H) * 0.50;
+
+    // sphere shading — bright top-left, deep bottom-right
+    var g = ctx.createRadialGradient(cx - R*0.35, cy - R*0.4, R*0.1, cx, cy, R*1.05);
+    g.addColorStop(0,    'rgba(255,255,255,.55)');
+    g.addColorStop(0.55, 'rgba(24,0,173,.04)');
+    g.addColorStop(1,    'rgba(24,0,173,.10)');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI*2); ctx.fill();
+
+    // outer ring
+    ctx.strokeStyle = 'rgba(24,0,173,.18)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI*2); ctx.stroke();
+
+    // curved latitude rings
+    ctx.strokeStyle = 'rgba(24,0,173,.10)';
     ctx.lineWidth = 0.6;
-    for (var y = 0.18; y < 1; y += 0.16){
-      ctx.beginPath(); ctx.moveTo(0, y*H); ctx.lineTo(W, y*H); ctx.stroke();
+    for (var i = -2; i <= 2; i++){
+      var phi = i * 30 * Math.PI/180;
+      var ry  = Math.abs(R * Math.cos(phi));
+      var yo  = R * Math.sin(phi);
+      ctx.beginPath();
+      ctx.ellipse(cx, cy + yo, ry, ry * 0.20, 0, 0, Math.PI*2);
+      ctx.stroke();
     }
-    for (var x = 0.14; x < 1; x += 0.16){
-      ctx.beginPath(); ctx.moveTo(x*W, 0); ctx.lineTo(x*W, H); ctx.stroke();
+
+    // slowly rotating longitude meridians
+    var rot = (now * 0.006) % 180;
+    ctx.strokeStyle = 'rgba(24,0,173,.09)';
+    for (var m = 0; m < 6; m++){
+      var theta = (m * 30 + rot) * Math.PI/180;
+      var rx = Math.abs(R * Math.cos(theta));
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, rx, R, 0, 0, Math.PI*2);
+      ctx.stroke();
     }
   }
 
@@ -2539,41 +2656,141 @@ section[data-section-hidden="1"], header[data-section-hidden="1"] { display: non
     }
   }
 
-  function drawCity(city, highlight){
+  // Small iso tram/bus sitting on the city road.
+  function drawTram(cx, cy, s, color){
+    var w = 4.5*s, h = 1.8*s, d = w*0.42;
+    ctx.fillStyle = shade(color, 0.30);
+    ctx.beginPath();
+    ctx.moveTo(cx, cy - h);
+    ctx.lineTo(cx + w/2, cy - h + d/2);
+    ctx.lineTo(cx, cy - h + d);
+    ctx.lineTo(cx - w/2, cy - h + d/2);
+    ctx.closePath(); ctx.fill();
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(cx - w/2, cy - h + d/2);
+    ctx.lineTo(cx - w/2, cy + d/2);
+    ctx.lineTo(cx, cy + d);
+    ctx.lineTo(cx, cy - h + d);
+    ctx.closePath(); ctx.fill();
+    ctx.fillStyle = shade(color, -0.20);
+    ctx.beginPath();
+    ctx.moveTo(cx + w/2, cy - h + d/2);
+    ctx.lineTo(cx + w/2, cy + d/2);
+    ctx.lineTo(cx, cy + d);
+    ctx.lineTo(cx, cy - h + d);
+    ctx.closePath(); ctx.fill();
+    // window strip
+    ctx.fillStyle = 'rgba(255,255,255,.55)';
+    ctx.fillRect(cx - w/2 + 0.4, cy - h + 0.3, w/2 - 0.8, h*0.5);
+  }
+
+  function drawTree(cx, cy, s){
+    ctx.fillStyle = GREEN;
+    ctx.beginPath();
+    ctx.arc(cx, cy - 0.7*s, 1*s, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(15,26,54,.55)';
+    ctx.fillRect(cx - 0.25*s, cy - 0.3*s, 0.5*s, 0.5*s);
+  }
+
+  // Vertical signpost or rooftop signage block on a building.
+  function drawSign(cx, cy, s, color){
+    ctx.fillStyle = color;
+    ctx.fillRect(cx - 0.3*s, cy, 0.6*s, 2.4*s);
+    // post
+    ctx.fillStyle = 'rgba(15,26,54,.5)';
+    ctx.fillRect(cx - 0.1*s, cy + 2.4*s, 0.2*s, 1.5*s);
+  }
+
+  // Rich iso city vignette. alpha controls full visibility.
+  function drawCity(city, alpha){
+    if (alpha <= 0.015) return;
+    ctx.save();
+    ctx.globalAlpha = alpha;
+
     var cx = city.x * W;
     var cy = city.y * H;
-    var s = Math.min(W, H) * 0.0095;
-    // platform shadow
-    ctx.fillStyle = highlight ? 'rgba(196,146,44,.22)' : 'rgba(15,26,54,.08)';
+    var s = Math.min(W, H) * 0.0092;
+
+    // cream ground patch + soft shadow underneath
+    ctx.fillStyle = 'rgba(15,26,54,.10)';
     ctx.beginPath();
-    ctx.ellipse(cx, cy + 5*s, 10*s, 3*s, 0, 0, Math.PI*2);
+    ctx.ellipse(cx, cy + 7.3*s, 12*s, 3.6*s, 0, 0, Math.PI*2);
     ctx.fill();
-    // 3 iso buildings (varied heights)
-    var col = city.accent;
-    isoBox(cx - 4.5*s, cy + 0*s, 2.4*s, 4.5*s, shade(col, 0.55));
-    isoBox(cx,         cy + 0*s, 2.8*s, 7*s,   shade(col, 0.42));
-    isoBox(cx + 4*s,   cy + 0*s, 2.2*s, 3.5*s, shade(col, 0.6));
-    // landmark above the centre building
-    landmark(city.land, cx, cy - 4.5*s, s, col);
-    // label
-    ctx.fillStyle = highlight ? '#c4922c' : '#0f1a36';
+    ctx.fillStyle = CREAM;
+    ctx.beginPath();
+    ctx.ellipse(cx, cy + 7*s, 11.4*s, 3.3*s, 0, 0, Math.PI*2);
+    ctx.fill();
+
+    // Building cluster — mix of blue main, white, orange, green accents.
+    // Back row (smaller, behind)
+    isoBox(cx - 5*s,    cy - 0.8*s, 2.0*s, 4.5*s, BLUE_S);
+    isoBox(cx - 1.5*s,  cy - 1.4*s, 2.2*s, 5.5*s, WHITE);
+    isoBox(cx + 2.5*s,  cy - 0.6*s, 2.0*s, 4.2*s, BLUE_S);
+    // Mid row (taller, foreground)
+    isoBox(cx - 6*s,    cy + 1.5*s, 2.5*s, 6*s,   BLUE);
+    isoBox(cx - 2.8*s,  cy + 1.2*s, 2.6*s, 7*s,   BLUE_D);
+    isoBox(cx + 0.5*s,  cy + 1.4*s, 2.4*s, 6.5*s, WHITE);
+    isoBox(cx + 3.5*s,  cy + 1.3*s, 2.3*s, 5.8*s, BLUE);
+    isoBox(cx + 6*s,    cy + 1.6*s, 2.0*s, 4.5*s, ORANGE);
+    // Rooftop signs on a few buildings
+    drawSign(cx - 2.8*s, cy + 1.2*s - 7*s - 2.4*s, s, ORANGE);
+    drawSign(cx + 3.5*s, cy + 1.3*s - 5.8*s - 2.4*s, s, GREEN);
+
+    // Landmark (slightly behind/up the centre)
+    landmark(city.land, cx + 0.5*s, cy - 1.5*s, s * 1.05, BLUE);
+
+    // Front road across the ground patch
+    ctx.strokeStyle = 'rgba(15,26,54,.22)';
+    ctx.lineWidth = 0.7;
+    ctx.beginPath();
+    ctx.moveTo(cx - 9.5*s, cy + 5.6*s);
+    ctx.lineTo(cx + 9.5*s, cy + 5.6*s);
+    ctx.stroke();
+    // dashed centre line
+    ctx.strokeStyle = 'rgba(15,26,54,.18)';
+    ctx.lineWidth = 0.5;
+    ctx.setLineDash([1.5, 2]);
+    ctx.beginPath();
+    ctx.moveTo(cx - 9*s, cy + 5.8*s);
+    ctx.lineTo(cx + 9*s, cy + 5.8*s);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Vehicle on the road (offset slightly)
+    drawTram(cx + 1.6*s, cy + 6.1*s, s, city.vehicle);
+
+    // Trees flanking the road
+    drawTree(cx - 7.5*s, cy + 5.4*s, s);
+    drawTree(cx + 7.5*s, cy + 5.4*s, s);
+
+    // Hub anchor dot (signals "NAC city")
+    ctx.fillStyle = ORANGE;
+    ctx.beginPath(); ctx.arc(cx, cy + 7.6*s, 1.3*s, 0, Math.PI*2); ctx.fill();
+    ctx.strokeStyle = WHITE;
+    ctx.lineWidth = 0.8;
+    ctx.beginPath(); ctx.arc(cx, cy + 7.6*s, 1.3*s, 0, Math.PI*2); ctx.stroke();
+
+    // City name label
+    ctx.fillStyle = INK;
     ctx.font = '600 ' + Math.round(s*5.2) + 'px Inter, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
-    ctx.fillText(city.name.toUpperCase(), cx, cy + 10*s);
+    ctx.fillText(city.name.toUpperCase(), cx, cy + 9.5*s);
     ctx.textBaseline = 'alphabetic';
-    // hub dot
-    ctx.fillStyle = highlight ? '#c4922c' : '#5b3aa8';
-    ctx.beginPath(); ctx.arc(cx, cy + 5.5*s, 1.4*s, 0, Math.PI*2); ctx.fill();
+
+    ctx.restore();
   }
 
-  // ---- bezier point on arc + tangent ----
+  // ---- bezier point on arc + tangent (higher arch) ----
   function arcPoint(from, to, t){
     var fx = from.x*W, fy = from.y*H;
     var tx = to.x*W, ty = to.y*H;
     var dx = tx - fx, dy = ty - fy;
     var dist = Math.sqrt(dx*dx + dy*dy);
-    var mx = (fx+tx)/2, my = (fy+ty)/2 - dist*0.20;
+    // arch always rises toward the top of the canvas
+    var mx = (fx+tx)/2, my = (fy+ty)/2 - dist*0.34;
     var u = 1 - t;
     var x = u*u*fx + 2*u*t*mx + t*t*tx;
     var y = u*u*fy + 2*u*t*my + t*t*ty;
@@ -2582,29 +2799,33 @@ section[data-section-hidden="1"], header[data-section-hidden="1"] { display: non
     return { x: x, y: y, mx: mx, my: my, angle: Math.atan2(tay, tax) };
   }
 
-  function drawFaintArc(from, to){
-    ctx.strokeStyle = 'rgba(15,26,54,.07)';
+  // Faint dashed flight path between two cities.
+  function drawArcPath(from, to, alpha, color){
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.strokeStyle = color;
     ctx.lineWidth = 1;
-    ctx.setLineDash([2, 4]);
+    ctx.setLineDash([3, 5]);
     ctx.beginPath();
     var p0 = arcPoint(from, to, 0);
     ctx.moveTo(p0.x, p0.y);
-    for (var k = 0.05; k <= 1; k += 0.05){
+    for (var k = 0.04; k <= 1; k += 0.03){
       var p = arcPoint(from, to, k);
       ctx.lineTo(p.x, p.y);
     }
     ctx.stroke();
     ctx.setLineDash([]);
+    ctx.restore();
   }
 
   function drawTrail(now){
-    ctx.lineWidth = 1.6;
+    ctx.lineWidth = 2;
     ctx.setLineDash([5, 6]);
     for (var i = 1; i < trail.length; i++){
       var a = trail[i-1], b = trail[i];
       var age = now - a.t;
       var alpha = Math.max(0, 1 - age / trailMaxAge);
-      ctx.strokeStyle = 'rgba(196,146,44,' + (alpha * 0.75) + ')';
+      ctx.strokeStyle = 'rgba(217,124,68,' + (alpha * 0.85) + ')';
       ctx.beginPath();
       ctx.moveTo(a.x, a.y);
       ctx.lineTo(b.x, b.y);
@@ -2613,47 +2834,78 @@ section[data-section-hidden="1"], header[data-section-hidden="1"] { display: non
     ctx.setLineDash([]);
   }
 
+  // Commercial airliner silhouette — small, top-down view.
   function drawPlane(x, y, angle, withPassport){
-    var s = Math.min(W, H) * 0.013;
+    var s = Math.min(W, H) * 0.0115;
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(angle);
-    // body
-    ctx.fillStyle = '#0f1a36';
+
+    // fuselage
+    ctx.fillStyle = BLUE;
     ctx.beginPath();
-    ctx.moveTo(7*s, 0);
-    ctx.lineTo(-4*s, -2*s);
-    ctx.lineTo(-2*s, 0);
-    ctx.lineTo(-4*s, 2*s);
+    ctx.ellipse(0, 0, 5.5*s, 0.95*s, 0, 0, Math.PI*2);
+    ctx.fill();
+
+    // nose tip
+    ctx.beginPath();
+    ctx.moveTo(5*s, -0.5*s);
+    ctx.quadraticCurveTo(6.5*s, 0, 5*s, 0.5*s);
+    ctx.fill();
+
+    // main wings (swept back)
+    ctx.beginPath();
+    ctx.moveTo(0.6*s, -0.4*s);
+    ctx.lineTo(-2.6*s, -3.6*s);
+    ctx.lineTo(-3.2*s, -3.6*s);
+    ctx.lineTo(-1.4*s, -0.4*s);
     ctx.closePath();
     ctx.fill();
-    // wings
-    ctx.fillStyle = '#c4922c';
     ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.lineTo(-2*s, -5*s);
-    ctx.lineTo(-3*s, -5*s);
-    ctx.lineTo(-1*s, 0);
-    ctx.lineTo(-3*s, 5*s);
-    ctx.lineTo(-2*s, 5*s);
+    ctx.moveTo(0.6*s, 0.4*s);
+    ctx.lineTo(-2.6*s, 3.6*s);
+    ctx.lineTo(-3.2*s, 3.6*s);
+    ctx.lineTo(-1.4*s, 0.4*s);
     ctx.closePath();
     ctx.fill();
-    // little nose blink
-    ctx.fillStyle = '#fff';
-    ctx.beginPath(); ctx.arc(5*s, 0, 0.7*s, 0, Math.PI*2); ctx.fill();
+
+    // tailplanes (small horizontal stabilisers)
+    ctx.beginPath();
+    ctx.moveTo(-4*s, -0.3*s);
+    ctx.lineTo(-5.4*s, -1.6*s);
+    ctx.lineTo(-5.8*s, -1.6*s);
+    ctx.lineTo(-4.6*s, -0.3*s);
+    ctx.closePath();
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(-4*s, 0.3*s);
+    ctx.lineTo(-5.4*s, 1.6*s);
+    ctx.lineTo(-5.8*s, 1.6*s);
+    ctx.lineTo(-4.6*s, 0.3*s);
+    ctx.closePath();
+    ctx.fill();
+
+    // gold fuselage stripe (livery)
+    ctx.fillStyle = ORANGE;
+    ctx.fillRect(-3.5*s, -0.18*s, 7*s, 0.36*s);
+
+    // windshield highlight
+    ctx.fillStyle = 'rgba(255,255,255,.55)';
+    ctx.beginPath(); ctx.arc(4*s, 0, 0.4*s, 0, Math.PI*2); ctx.fill();
+
     ctx.restore();
 
     if (withPassport){
-      // small upright passport indicator behind/below the plane
+      // small upright passport carried just behind the plane
       ctx.save();
-      var off = 9*s;
-      ctx.translate(x - Math.cos(angle) * off, y - Math.sin(angle) * off + 0.5*s);
-      ctx.fillStyle = '#0f1a36';
-      ctx.fillRect(-2.2*s, -3*s, 4.4*s, 6*s);
-      ctx.fillStyle = '#c4922c';
-      ctx.fillRect(-2.2*s, -3*s, 4.4*s, 0.6*s);
-      ctx.fillRect(-2.2*s, 2.4*s, 4.4*s, 0.6*s);
-      ctx.beginPath(); ctx.arc(0, -0.5*s, 0.9*s, 0, Math.PI*2); ctx.fill();
+      var off = 8.5*s;
+      ctx.translate(x - Math.cos(angle) * off, y - Math.sin(angle) * off);
+      ctx.fillStyle = BLUE_D;
+      ctx.fillRect(-1.9*s, -2.5*s, 3.8*s, 5*s);
+      ctx.fillStyle = ORANGE;
+      ctx.fillRect(-1.9*s, -2.5*s, 3.8*s, 0.5*s);
+      ctx.fillRect(-1.9*s, 2.0*s, 3.8*s, 0.5*s);
+      ctx.beginPath(); ctx.arc(0, -0.4*s, 0.7*s, 0, Math.PI*2); ctx.fill();
       ctx.restore();
     }
   }
@@ -2678,12 +2930,12 @@ section[data-section-hidden="1"], header[data-section-hidden="1"] { display: non
     ctx.beginPath(); ctx.moveTo(2*s, -h/2 + 0.6*s); ctx.lineTo(2*s, h/2 - 0.6*s); ctx.stroke();
     ctx.setLineDash([]);
     // label
-    ctx.fillStyle = '#0f1a36';
+    ctx.fillStyle = BLUE;
     ctx.font = '700 ' + (3.2*s) + 'px Inter, sans-serif';
     ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
     ctx.fillText('NAC', -w/2 + 1*s, 0);
     ctx.font = '500 ' + (2.4*s) + 'px Inter, sans-serif';
-    ctx.fillStyle = '#c4922c';
+    ctx.fillStyle = ORANGE;
     ctx.fillText('BOARD', 3.2*s, 0);
     ctx.restore();
   }
@@ -2698,18 +2950,18 @@ section[data-section-hidden="1"], header[data-section-hidden="1"] { display: non
     ctx.rotate(0.12);
     var w = 9*s, h = 12*s;
     // book
-    ctx.fillStyle = '#0f1a36';
+    ctx.fillStyle = BLUE_D;
     ctx.fillRect(-w/2, -h/2, w, h);
-    // gold trims
-    ctx.fillStyle = '#c4922c';
+    // trims
+    ctx.fillStyle = ORANGE;
     ctx.fillRect(-w/2, -h/2, w, 0.7*s);
     ctx.fillRect(-w/2, h/2 - 0.7*s, w, 0.7*s);
     // emblem
     ctx.beginPath(); ctx.arc(0, -1.5*s, 1.4*s, 0, Math.PI*2); ctx.fill();
-    ctx.strokeStyle = '#c4922c'; ctx.lineWidth = 0.6;
+    ctx.strokeStyle = ORANGE; ctx.lineWidth = 0.6;
     ctx.beginPath(); ctx.arc(0, -1.5*s, 2.2*s, 0, Math.PI*2); ctx.stroke();
     // PASSPORT label
-    ctx.fillStyle = '#c4922c';
+    ctx.fillStyle = ORANGE;
     ctx.font = '600 ' + (1.6*s) + 'px Inter, sans-serif';
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.fillText('PASSPORT', 0, h/2 - 2.2*s);
@@ -2776,6 +3028,23 @@ section[data-section-hidden="1"], header[data-section-hidden="1"] { display: non
     var t = badge.querySelector('.to');   if (t) t.textContent = to.name;
   }
 
+  // Pick a random next city, avoiding from / to / current next.
+  function pickNext(){
+    var avoid = [fromIdx, toIdx, nextIdx];
+    var candidates = [];
+    for (var i = 0; i < CITIES.length; i++){
+      if (avoid.indexOf(i) === -1) candidates.push(i);
+    }
+    return candidates[Math.floor(Math.random() * candidates.length)];
+  }
+
+  function targetAlphaFor(idx){
+    if (idx === fromIdx) return 1;
+    if (idx === toIdx)   return 1;
+    if (idx === nextIdx) return 0.32;
+    return 0;
+  }
+
   function tick(now){
     if (W === 0 || H === 0){ resize(); requestAnimationFrame(tick); return; }
     if (!legStart) legStart = now;
@@ -2783,11 +3052,10 @@ section[data-section-hidden="1"], header[data-section-hidden="1"] { display: non
     if (inPause){
       if (now >= pauseUntil){
         inPause = false;
-        // pick next destination (not current)
-        var nextIdx = toIdx;
-        while (nextIdx === toIdx) nextIdx = Math.floor(Math.random() * CITIES.length);
+        // Advance the chain: from = old to; to = old next; next = new pick.
         fromIdx = toIdx;
-        toIdx = nextIdx;
+        toIdx   = nextIdx;
+        nextIdx = pickNext();
         legStart = now;
         trail = [];
         updateBadge(CITIES[fromIdx], CITIES[toIdx]);
@@ -2797,25 +3065,39 @@ section[data-section-hidden="1"], header[data-section-hidden="1"] { display: non
     var elapsed = now - legStart;
     var t = Math.max(0, Math.min(1, elapsed / legDur));
 
-    ctx.clearRect(0,0,W,H);
-    drawGrid();
-
-    var fromCity = CITIES[fromIdx], toCity = CITIES[toIdx];
-
-    // cities (highlight from + to)
+    // Smooth alpha lerp for every city — only 3 reach non-zero target.
     for (var i = 0; i < CITIES.length; i++){
-      drawCity(CITIES[i], (i === fromIdx) || (i === toIdx));
+      var ta  = targetAlphaFor(i);
+      var cur = cityAlpha[i] || 0;
+      cityAlpha[i] = cur + (ta - cur) * 0.045;
     }
-    drawFaintArc(fromCity, toCity);
 
+    ctx.clearRect(0, 0, W, H);
+    drawAtlas(now);
+
+    var fromCity = CITIES[fromIdx], toCity = CITIES[toIdx], nextCity = CITIES[nextIdx];
+
+    // Flight paths — current leg in blue, next leg as a faint preview.
+    drawArcPath(fromCity, toCity, 0.40, BLUE);
+    drawArcPath(toCity,   nextCity, 0.14, BLUE);
+
+    // Cities (sorted top-to-bottom so closer ones overlap behind farther).
+    var order = [];
+    for (var j = 0; j < CITIES.length; j++) order.push(j);
+    order.sort(function(a, b){ return CITIES[a].y - CITIES[b].y; });
+    for (var k = 0; k < order.length; k++){
+      drawCity(CITIES[order[k]], cityAlpha[order[k]]);
+    }
+
+    // Plane position along bezier
     var pt = arcPoint(fromCity, toCity, t);
-
     if (!inPause){
       trail.push({ x: pt.x, y: pt.y, t: now });
-      while (trail.length > 16) trail.shift();
+      while (trail.length > 18) trail.shift();
     }
     drawTrail(now);
 
+    // Mid-flight ticket → passport → check event
     var info = phaseInfo(t);
     var s = Math.min(W, H) * 0.013;
     if (info.ticketA > 0){
